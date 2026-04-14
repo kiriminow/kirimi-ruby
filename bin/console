@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'bundler/setup'
+require 'kirimi'
+
+# Interactive console for the Kirimi SDK.
+# Usage: bundle exec bin/console
+#
+# Example:
+#   client = Kirimi::Client.new(user_code: ENV['KIRIMI_USER_CODE'], secret: ENV['KIRIMI_SECRET'])
+
+require 'irb'
+IRB.start(__FILE__)
