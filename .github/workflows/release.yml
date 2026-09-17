@@ -10,12 +10,16 @@ concurrency:
 
 permissions:
   contents: write
+  # Required for RubyGems trusted publishing (OIDC). No API token needed.
+  id-token: write
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - uses: ruby/setup-ruby@v1
         with:
@@ -32,17 +36,13 @@ jobs:
           fi
 
       - run: bundle exec rake
-      - run: gem build kirimi.gemspec
 
-      - name: publish to rubygems
-        env:
-          GEM_HOST_API_KEY: ${{ secrets.GEM_HOST_API_KEY }}
-        run: |
-          if [ -z "$GEM_HOST_API_KEY" ]; then
-            echo "GEM_HOST_API_KEY not set" >&2
-            exit 1
-          fi
-          gem push kirimi-*.gem
+      # Exchanges the GitHub OIDC token for a short-lived RubyGems credential.
+      # Requires a trusted publisher configured for this gem on rubygems.org.
+      - uses: rubygems/configure-rubygems-credentials@v2
+
+      - run: gem build kirimi.gemspec
+      - run: gem push kirimi-*.gem
 
       - uses: softprops/action-gh-release@v2
         with:
