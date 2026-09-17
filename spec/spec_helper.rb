@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-# NOTE: RSpec + WebMock tests require Ruby >= 3.0 and the following gems:
-#   gem 'rspec',   '~> 3.12'
-#   gem 'webmock', '~> 3.19'
+# RSpec + WebMock suite. Requires Ruby >= 3.0 and the dev gems declared in
+# kirimi.gemspec (rspec, webmock).
 #
-# For Ruby 2.6 compatibility, use the Minitest suite in test/ instead:
-#   ruby -Ilib:test test/client_test.rb
+#   bundle install
+#   bundle exec rspec        # or: bundle exec rake
 
 require 'kirimi'
+require 'tempfile'
 require 'webmock/rspec'
 
 RSpec.configure do |config|

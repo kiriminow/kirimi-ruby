@@ -20,10 +20,12 @@ Gem::Specification.new do |spec|
   spec.metadata['changelog_uri']   = "#{spec.homepage}/blob/main/CHANGELOG.md"
 
   spec.files         = Dir.glob(%w[lib/**/* LICENSE README.md CHANGELOG.md kirimi.gemspec])
-  spec.test_files    = Dir.glob('test/**/*_test.rb')
+  spec.test_files    = Dir.glob('spec/**/*_spec.rb')
   spec.require_paths = ['lib']
 
   # No runtime dependencies — uses only Ruby stdlib (net/http, json, securerandom)
 
   spec.add_development_dependency 'rake', '~> 13.0'
+  spec.add_development_dependency 'rspec', '~> 3.12'
+  spec.add_development_dependency 'webmock', '~> 3.19'
 end
