@@ -39,7 +39,8 @@ jobs:
 
       # Exchanges the GitHub OIDC token for a short-lived RubyGems credential.
       # Requires a trusted publisher configured for this gem on rubygems.org.
-      - uses: rubygems/configure-rubygems-credentials@v2
+      # Pinned: this repo publishes v2.1.0 but no floating v2 tag.
+      - uses: rubygems/configure-rubygems-credentials@v2.1.0
 
       - run: gem build kirimi.gemspec
       - run: gem push kirimi-*.gem
